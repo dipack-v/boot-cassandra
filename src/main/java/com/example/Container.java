@@ -1,47 +1,78 @@
 package com.example;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.cassandra.mapping.Column;
 
-@Table(value="BILL_OF_LANDING")
-public class BillOfLanding {
-    @PrimaryKey
-    private String id;
-    @Column("TOTAL_CONTAINER_COUNT")
-    private int conatinerCount;
-    @Column("IS_LIVE_COUNTRY")
-    private boolean isLiveCountry;
-    
-    public BillOfLanding() {
-        super();
-    }
-    
-    public BillOfLanding(String id, int conatinerCount, boolean isLiveCountry) {
-        super();
-        this.id = id;
-        this.conatinerCount = conatinerCount;
-        this.isLiveCountry = isLiveCountry;
-    }
 
-    public String getId() {
-        return id;
+@Table(value="CONTAINER")
+public class Container {
+    @PrimaryKey
+    @Column("containerNumber")
+    private String containerNumber;
+    private String type;
+    private int size;
+    @Transient
+    private List<String> cargoes;
+    @Transient
+    private List<String> cargoDetailsSet;
+    @Transient
+    private List<String> commodities;
+    public Container() {
+        super();
+        this.cargoes = new ArrayList<String>();
+        this.cargoDetailsSet = new ArrayList<String>();
+        this.commodities = new ArrayList<String>();
+        
     }
-    public void setId(String id) {
-        this.id = id;
+    public Container(String containerNumber, String type, int size) {
+        super();
+        this.containerNumber = containerNumber;
+        this.type = type;
+        this.size = size;
+        this.cargoes = new ArrayList<String>();
+        this.cargoDetailsSet = new ArrayList<String>();
+        this.commodities = new ArrayList<String>();
     }
-    public int getConatinerCount() {
-        return conatinerCount;
+    public String getContainerNumber() {
+        return containerNumber;
     }
-    public void setConatinerCount(int conatinerCount) {
-        this.conatinerCount = conatinerCount;
+    public void setContainerNumber(String containerNumber) {
+        this.containerNumber = containerNumber;
     }
-    public boolean isLiveCountry() {
-        return isLiveCountry;
+    public String getType() {
+        return type;
     }
-    public void setLiveCountry(boolean isLiveCountry) {
-        this.isLiveCountry = isLiveCountry;
+    public void setType(String type) {
+        this.type = type;
     }
-    
-    
+    public int getSize() {
+        return size;
+    }
+    public void setSize(int size) {
+        this.size = size;
+    }
+    public List<String> getCargoes() {
+        return cargoes;
+    }
+    public void setCargoes(List<String> cargoes) {
+        this.cargoes = cargoes;
+    }
+    public List<String> getCargoDetailsSet() {
+        return cargoDetailsSet;
+    }
+    public void setCargoDetailsSet(List<String> cargoDetailsSet) {
+        this.cargoDetailsSet = cargoDetailsSet;
+    }
+    public List<String> getCommodities() {
+        return commodities;
+    }
+    public void setCommodities(List<String> commodities) {
+        this.commodities = commodities;
+    }
 
 }

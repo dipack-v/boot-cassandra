@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,25 +20,30 @@ public class DemoApplication {
     }
 
     @Bean
-    CommandLineRunner run(BillOfLandingRepository billOfLandingRepository) {
+    CommandLineRunner run(ContainerRepository containerRepository) {
         return args -> {
-            List<BillOfLanding> billOfLandings = new ArrayList<BillOfLanding>();
-            BillOfLanding bol1 = new BillOfLanding("L71998091", 1, true);
-            billOfLandings.add(bol1);
-            BillOfLanding bol2 = new BillOfLanding("L71998092", 1, true);
-            billOfLandings.add(bol2);
-            billOfLandingRepository.save(billOfLandings);
+            List<Container> containers = new ArrayList<Container>();
+            Container c1 = new Container("MRKU5806034", "DRY", 40);
+            containers.add(c1);
+            Container c2 = new Container("MRKU5806035", "DRY", 40);
+            containers.add(c2);
+            containerRepository.save(containers);
         };
     }
 }
 
 @RestController
-class BillOfLandingController{
+class ContainerController {
     @Autowired
-    BillOfLandingRepository billOfLandingRepository;
-    @RequestMapping("/vessel")
-    public List<BillOfLanding> findAll(){
-        return billOfLandingRepository.findAll();
+    ContainerRepository containerRepository;
+
+    @RequestMapping("/container")
+    public List<Container> findAll() {
+        return containerRepository.findAll();
+    }
+
+    @RequestMapping("/container/{id}")
+    public Container findOne(@PathVariable String id) {
+        return containerRepository.findOne(id);
     }
 }
-

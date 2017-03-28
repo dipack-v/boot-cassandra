@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface  BillOfLandingRepository extends CrudRepository<BillOfLanding, Long>{
-    List<BillOfLanding> findAll();   
-    
+public interface  ContainerRepository extends CrudRepository<Container, String>{
+    List<Container> findAll();   
 }
